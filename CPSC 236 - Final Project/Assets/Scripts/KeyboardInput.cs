@@ -6,7 +6,7 @@ public class KeyboardInput : MonoBehaviour
 {
     public Corgi Corgi;
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //check key
         if (Input.GetKey(KeyCode.W))
