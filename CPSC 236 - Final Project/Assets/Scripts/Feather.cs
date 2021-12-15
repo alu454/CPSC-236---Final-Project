@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bomb : MonoBehaviour
+public class Feather : MonoBehaviour
 {
     private Rigidbody physics;
-    private float startSpeed = 300;
+    private float moveSpeed = 200;
 
     void Awake()
     {
@@ -16,6 +16,6 @@ public class Bomb : MonoBehaviour
     private void Launch()
     {
         physics.isKinematic = false;
-        physics.AddForce(new Vector3(startSpeed, Random.Range(-startSpeed, startSpeed), 0f));
+        physics.AddForce(new Vector3(Random.Range(-moveSpeed, moveSpeed), Random.Range(-moveSpeed, moveSpeed), 0f));
     }
 }

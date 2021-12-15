@@ -5,10 +5,8 @@ using UnityEngine;
 public class KeyboardInput : MonoBehaviour
 {
     public Corgi Corgi;
-    // Update is called once per frame
     void FixedUpdate()
     {
-        //check key
         if (Input.GetKey(KeyCode.W))
         {
             Corgi.MoveWithKeyboard(new Vector2(0, 1));

@@ -6,14 +6,14 @@ public class BombSpawner : RandomTimedObjectPlacer
 {
     public override void Start()
     {
-        MinimumTimeToCreation = 4;
-        MaximumTimeToCreation = 4;
+        MinimumTimeToCreation = 10;
+        MaximumTimeToCreation = 10;
         base.Start();
     }
 
     public override void Create()
     {
-        Instantiate(Prefab, ScreenPositionTools.RandomWorldLocation(Camera), Quaternion.identity);
+        Instantiate(Prefab, new Vector3(-1, 1, 0), Quaternion.identity);
         base.Create();
     }
 }

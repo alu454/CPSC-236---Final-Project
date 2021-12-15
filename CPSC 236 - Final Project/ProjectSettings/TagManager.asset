@@ -4,12 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Beer
-  - Bone
-  - Moonshine
-  - Pill
-  - Poop
   - Boundary
+  - Bomb
+  - Feather
+  - Sword
   layers:
   - Default
   - TransparentFX
