@@ -14,7 +14,7 @@ public class PoopSpawner : RandomTimedObjectPlacer
 
     public override void Create()
     {
-        Instantiate(Prefab, ScreenPositionTools.RandomWorldLocation(Camera), Quaternion.identity);
+        Instantiate(Prefab, new Vector3(Random.Range(-1, 5), Random.Range(-2, 4), 0), Quaternion.identity);
         base.Create();
     }
 }

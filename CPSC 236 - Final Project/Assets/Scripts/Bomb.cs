@@ -14,6 +14,7 @@ public class Bomb : MonoBehaviour
         Physics.IgnoreLayerCollision(3, 6);
         Physics.IgnoreLayerCollision(3, 7);
         Physics.IgnoreLayerCollision(3, 3);
+        Physics.IgnoreLayerCollision(3, 8);
         Launch();
     }
 

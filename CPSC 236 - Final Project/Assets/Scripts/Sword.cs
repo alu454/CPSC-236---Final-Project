@@ -11,8 +11,9 @@ public class Sword : MonoBehaviour
     {
         physics = gameObject.GetComponent<Rigidbody>();
         Physics.IgnoreLayerCollision(6, 3);
-        Physics.IgnoreLayerCollision(6, 7);
         Physics.IgnoreLayerCollision(6, 6);
+        Physics.IgnoreLayerCollision(6, 7);
+        Physics.IgnoreLayerCollision(6, 8);
         Launch();
     }
 

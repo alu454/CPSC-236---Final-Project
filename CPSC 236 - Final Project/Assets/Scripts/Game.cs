@@ -8,14 +8,17 @@ public class Game : MonoBehaviour
     public SpriteRenderer bombSpriteRenderer;
     public SpriteRenderer swordSpriteRenderer;
     public SpriteRenderer featherSpriteRenderer;
+    public SpriteRenderer poopSpriteRenderer;
     public Corgi Corgi;
     public static Game Instance;
     public Readouts Readouts;
     public bool StopSpawning;
+    public GameObject DamagePrefab;
 
     public Collider bombCollider;
     public Collider featherCollider;
     public Collider swordCollider;
+    public Collider poopCollider;
 
     private int featherCount;
 
@@ -37,6 +40,7 @@ public class Game : MonoBehaviour
     public void CollectFeather()
     {
         UpdateFeatherCount(featherCount + 1);
+        Readouts.DisplayCorgiHealth(Corgi.GetHealth());
         CheckIfWonLevel();
     }
 
@@ -44,12 +48,20 @@ public class Game : MonoBehaviour
     {
         if (Wizzy.CheckIfHealthZero())
             DisableGamePlay();
+        if (Corgi.GetHealth() == 0)
+            DisableGamePlay();
+    }
+
+    public void HitPoop(int health)
+    {
+        Readouts.DisplayCorgiHealth(health);
     }
 
     private void UpdateFeatherCount(int count)
     {
         featherCount = count;
         Readouts.ShowFeatherCount(featherCount);
+        Readouts.DisplayFeatherCount(featherCount);
     }
 
     private void CheckIfWonLevel()
@@ -58,7 +70,10 @@ public class Game : MonoBehaviour
             DisableGamePlay();
     }
 
-
+    public void DamageEffect(GameObject fire)
+    {
+        Instantiate(DamagePrefab, fire.transform.position, Quaternion.identity);
+    }
 
     private void DisableGamePlay()
     {
@@ -77,6 +92,11 @@ public class Game : MonoBehaviour
         {
             Destroy(item);
         }
+        GameObject[] poop = GameObject.FindGameObjectsWithTag("Poop");
+        foreach (GameObject item in poop)
+        {
+            Destroy(item);
+        }
         HidePrefabs();
         Corgi.Disable();
         
@@ -87,10 +107,12 @@ public class Game : MonoBehaviour
         bombSpriteRenderer.enabled = false; 
         swordSpriteRenderer.enabled = false;
         featherSpriteRenderer.enabled = false;
+        poopSpriteRenderer.enabled = false;
 
         bombCollider.isTrigger = true;
         featherCollider.isTrigger = true;
         swordCollider.isTrigger = true;
+        poopCollider.isTrigger = true;
     }
 
     public void ShowPrefabs()
@@ -98,16 +120,19 @@ public class Game : MonoBehaviour
         bombSpriteRenderer.enabled = true;
         swordSpriteRenderer.enabled = true;
         featherSpriteRenderer.enabled = true;
+        poopSpriteRenderer.enabled = true;
 
         bombCollider.isTrigger = false;
         featherCollider.isTrigger = false;
         swordCollider.isTrigger = false;
+        poopCollider.isTrigger = false;
     }
 
     private void Reset()
     {
         featherCount = 0;
-        Readouts.Reset(featherCount);
+        Corgi.SetHealth(4); 
+        Readouts.Reset(featherCount,Corgi.GetHealth());
         ShowPrefabs();
         Corgi.Reset();
     }

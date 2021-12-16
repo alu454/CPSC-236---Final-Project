@@ -14,6 +14,7 @@ public class Feather : MonoBehaviour
         Physics.IgnoreLayerCollision(7, 6);
         Physics.IgnoreLayerCollision(7, 3);
         Physics.IgnoreLayerCollision(7, 7);
+        Physics.IgnoreLayerCollision(7, 8);
         Launch();
     }
 

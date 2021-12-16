@@ -12,8 +12,7 @@ public class Corgi : MonoBehaviour
 
     
     private Rigidbody physics;
-    private int Lives = 3;
-    private int WizLives = 3;
+    private int Lives = 4;
     private float flashTime = .1f;
 
     
@@ -45,6 +44,16 @@ public class Corgi : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    public int GetHealth()
+    {
+        return Lives;
+    }
+
+    public void SetHealth(int health)
+    {
+        Lives = health;
+    }
+
     public void Reset()
     {
         gameObject.SetActive(true);
@@ -65,6 +74,7 @@ public class Corgi : MonoBehaviour
 
         return new Vector2(amountX, amountY);
     }
+
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -88,7 +98,15 @@ public class Corgi : MonoBehaviour
             Destroy(collision.gameObject);
             Game.Instance.CheckGameOverAfterCollision();
         }
-        
+        if (collision.gameObject.tag == "Poop")
+        {
+            Lives = Lives - 1;
+            Game.Instance.DamageEffect(collision.gameObject);
+            Destroy(collision.gameObject);
+            Game.Instance.HitPoop(Lives);
+            StartCoroutine(StartFlashing());
+            Game.Instance.CheckGameOverAfterCollision();
+        }
     }
 
     IEnumerator StartFlashing()
@@ -104,12 +122,12 @@ public class Corgi : MonoBehaviour
         //CorgiCollider.isTrigger = false;
     }
 
-    
-
-    
-
     private void SwitchToNormalSprite()
     {
         CorgiSpriteRenderer.sprite = NormalSprite;
     }
+
+
+
+
 }
