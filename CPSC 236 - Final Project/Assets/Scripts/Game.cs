@@ -21,7 +21,7 @@ public class Game : MonoBehaviour
     public Collider poopCollider;
 
     private int featherCount;
-
+    private Levels Levels;
 
     private void Awake()
     {
@@ -29,7 +29,7 @@ public class Game : MonoBehaviour
             Destroy(this.gameObject);
         else
             Instance = this;
-        
+        //Levels = gameObject.GetComponent<Levels>();
     }
 
     private void Start()

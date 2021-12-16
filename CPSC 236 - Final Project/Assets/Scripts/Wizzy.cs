@@ -5,12 +5,11 @@ using UnityEngine;
 public class Wizzy : MonoBehaviour
 {
 
-	public int maxHealth = 100;
+	public int maxHealth = 80;
 	public int currentHealth;
 
 	public GameObject FloatingScorePrefab;
 	public GameObject DamageEffect;
-
 
 	public HealthBar healthBar;
 

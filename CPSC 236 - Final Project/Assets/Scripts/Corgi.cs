@@ -10,19 +10,25 @@ public class Corgi : MonoBehaviour
     public Sprite NormalSprite;
     public Wizzy Wizzy;
 
-    
+    public GameObject FloatingScorePrefab;
+    public CorgiHealthBar healthBar;
+
+    public int maxHealth = 100;
+    public int currentHealth;
+
     private Rigidbody physics;
     private int Lives = 4;
     private float flashTime = .1f;
 
-    
-    
-
-
     public void Awake()
     {
-        physics = gameObject.GetComponent<Rigidbody>();
-        
+        physics = gameObject.GetComponent<Rigidbody>(); 
+    }
+
+    public void Start()
+    {
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     public void Move(Vector2 direction)
@@ -59,6 +65,13 @@ public class Corgi : MonoBehaviour
         gameObject.SetActive(true);
     }
 
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        Instantiate(FloatingScorePrefab, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
+        healthBar.SetHealth(currentHealth);
+    }
+
     private void FaceCorrectDirection(float directionX)
     {
         if (directionX > 0)
@@ -80,27 +93,25 @@ public class Corgi : MonoBehaviour
     {
         if (collision.gameObject.tag == "Bomb")
         {
-            Wizzy.TakeDamage(10);
+            TakeDamage(20);
             StartCoroutine(StartFlashing());
-            Destroy(collision.gameObject);
             Game.Instance.CheckGameOverAfterCollision();
         }
         if (collision.gameObject.tag == "Feather")
         {
-            Lives = Lives + 1;
             Destroy(collision.gameObject);
+            StartCoroutine(SpeedUp());
             Game.Instance.CollectFeather();
         }
         if (collision.gameObject.tag == "Sword")
         {
             Wizzy.TakeDamage(20);
-            StartCoroutine(StartFlashing());
             Destroy(collision.gameObject);
             Game.Instance.CheckGameOverAfterCollision();
         }
         if (collision.gameObject.tag == "Poop")
         {
-            Lives = Lives - 1;
+            TakeDamage(10);
             Game.Instance.DamageEffect(collision.gameObject);
             Destroy(collision.gameObject);
             Game.Instance.HitPoop(Lives);
@@ -122,12 +133,15 @@ public class Corgi : MonoBehaviour
         //CorgiCollider.isTrigger = false;
     }
 
+    IEnumerator SpeedUp()
+    {
+           GameParameters.CorgiMoveDistance = 0.3f;
+           yield return new WaitForSeconds(10);
+           GameParameters.CorgiMoveDistance = 0.1f;
+    }
+
     private void SwitchToNormalSprite()
     {
         CorgiSpriteRenderer.sprite = NormalSprite;
     }
-
-
-
-
 }
