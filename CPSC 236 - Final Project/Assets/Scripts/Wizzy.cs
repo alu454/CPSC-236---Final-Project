@@ -26,4 +26,11 @@ public class Wizzy : MonoBehaviour
 		Instantiate(FloatingScorePrefab, new Vector3(transform.position.x, transform.position.y + 2, transform.position.z), Quaternion.identity);
 		healthBar.SetHealth(currentHealth);
 	}
+
+	public bool CheckIfHealthZero()
+    {
+		if (currentHealth == 0)
+			return true;
+		return false;
+    }
 }

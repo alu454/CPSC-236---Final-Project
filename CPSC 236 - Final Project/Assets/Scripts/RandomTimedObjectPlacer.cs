@@ -5,6 +5,7 @@ using UnityEngine;
 public class RandomTimedObjectPlacer : MonoBehaviour
 {
     public GameObject Prefab;
+    
     public Camera Camera;
     public int MinimumTimeToCreation = 1;
     public int MaximumTimeToCreation = 3;
@@ -14,7 +15,7 @@ public class RandomTimedObjectPlacer : MonoBehaviour
 
     public virtual void Start()
     {
-
+        
     }
     void FixedUpdate()
     {
@@ -29,6 +30,7 @@ public class RandomTimedObjectPlacer : MonoBehaviour
     IEnumerator CountdownUntilCreation()
     {
         yield return new WaitForSeconds(secondsUntilCreation);
+        
         Create();
     }
 

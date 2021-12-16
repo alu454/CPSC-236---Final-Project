@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
+    
     private Rigidbody physics;
-    private float startSpeed = 300;
+    private float startSpeed = 250;
 
     void Awake()
     {
         physics = gameObject.GetComponent<Rigidbody>();
+        Physics.IgnoreLayerCollision(3, 6);
+        Physics.IgnoreLayerCollision(3, 7);
+        Physics.IgnoreLayerCollision(3, 3);
         Launch();
     }
 

@@ -8,15 +8,16 @@ TagManager:
   - Bomb
   - Feather
   - Sword
+  - Corgi
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Bomb
   - Water
   - UI
-  - 
-  - 
+  - Sword
+  - Feather
   - 
   - 
   - 

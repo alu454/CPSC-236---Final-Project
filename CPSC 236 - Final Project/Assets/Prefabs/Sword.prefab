@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1170143393265753412}
   - component: {fileID: 232411981666030862}
   - component: {fileID: 2322376854004240715}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sword
   m_TagString: Sword
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ CapsuleCollider:
   m_Enabled: 1
   m_Radius: 0.475
   m_Height: 1.05
-  m_Direction: 1
+  m_Direction: 0
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2322376854004240715
 MonoBehaviour:

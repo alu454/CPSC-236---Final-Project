@@ -10,14 +10,20 @@ public class Corgi : MonoBehaviour
     public Sprite NormalSprite;
     public Wizzy Wizzy;
 
+    
     private Rigidbody physics;
     private int Lives = 3;
     private int WizLives = 3;
+    private float flashTime = .1f;
+
+    
+    
 
 
     public void Awake()
     {
         physics = gameObject.GetComponent<Rigidbody>();
+        
     }
 
     public void Move(Vector2 direction)
@@ -32,6 +38,16 @@ public class Corgi : MonoBehaviour
         physics.velocity = Vector3.zero;
         physics.angularVelocity = Vector3.zero;
         Move(direction);
+    }
+
+    public void Disable()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void Reset()
+    {
+        gameObject.SetActive(true);
     }
 
     private void FaceCorrectDirection(float directionX)
@@ -54,20 +70,43 @@ public class Corgi : MonoBehaviour
     {
         if (collision.gameObject.tag == "Bomb")
         {
-            Lives = Lives - 1;
+            Wizzy.TakeDamage(10);
+            StartCoroutine(StartFlashing());
+            Destroy(collision.gameObject);
+            Game.Instance.CheckGameOverAfterCollision();
         }
         if (collision.gameObject.tag == "Feather")
         {
             Lives = Lives + 1;
             Destroy(collision.gameObject);
+            Game.Instance.CollectFeather();
         }
         if (collision.gameObject.tag == "Sword")
         {
             Wizzy.TakeDamage(20);
+            StartCoroutine(StartFlashing());
             Destroy(collision.gameObject);
+            Game.Instance.CheckGameOverAfterCollision();
         }
         
     }
+
+    IEnumerator StartFlashing()
+    {
+        //CorgiCollider.isTrigger = true;
+        for (int i = 0; i < 2; i++)
+        {
+            CorgiSpriteRenderer.enabled = false;
+            yield return new WaitForSeconds(flashTime);
+            CorgiSpriteRenderer.enabled = true;
+            yield return new WaitForSeconds(flashTime);
+        }
+        //CorgiCollider.isTrigger = false;
+    }
+
+    
+
+    
 
     private void SwitchToNormalSprite()
     {

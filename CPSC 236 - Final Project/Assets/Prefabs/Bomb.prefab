@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7113858097580589198}
   - component: {fileID: 5992631785017143063}
   - component: {fileID: 126024533081513388}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Bomb
   m_TagString: Bomb
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!114 &126024533081513388
 MonoBehaviour:
