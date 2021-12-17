@@ -29,7 +29,7 @@ public class Game : MonoBehaviour
             Destroy(this.gameObject);
         else
             Instance = this;
-        //Levels = gameObject.GetComponent<Levels>();
+        Levels = gameObject.GetComponent<Levels>();
     }
 
     private void Start()
@@ -41,15 +41,26 @@ public class Game : MonoBehaviour
     {
         UpdateFeatherCount(featherCount + 1);
         Readouts.DisplayCorgiHealth(Corgi.GetHealth());
-        CheckIfWonLevel();
+        
     }
 
     public void CheckGameOverAfterCollision()
     {
+        
         if (Wizzy.CheckIfHealthZero())
+        {
+            
+            GameIsWon();
             DisableGamePlay();
+        }
+            
         if (Corgi.GetHealth() == 0)
+        {
+            
+            GameIsLost();
             DisableGamePlay();
+        }
+            
     }
 
     public void HitPoop(int health)
@@ -60,14 +71,20 @@ public class Game : MonoBehaviour
     private void UpdateFeatherCount(int count)
     {
         featherCount = count;
-        Readouts.ShowFeatherCount(featherCount);
+        //Readouts.ShowFeatherCount(featherCount);
         Readouts.DisplayFeatherCount(featherCount);
     }
 
-    private void CheckIfWonLevel()
+    private void GameIsWon()
     {
-        if (featherCount == 3)
-            DisableGamePlay();
+        Readouts.ShowWinResults();
+        Sounds.Instance.PlayGameWon();
+    }
+
+    private void GameIsLost()
+    {
+        Readouts.ShowLoseResult();
+        Sounds.Instance.PlayGameOver();
     }
 
     public void DamageEffect(GameObject fire)
@@ -97,44 +114,48 @@ public class Game : MonoBehaviour
         {
             Destroy(item);
         }
-        HidePrefabs();
+        //HidePrefabs();
         Corgi.Disable();
         
     }
 
-    public void HidePrefabs()
-    {
-        bombSpriteRenderer.enabled = false; 
-        swordSpriteRenderer.enabled = false;
-        featherSpriteRenderer.enabled = false;
-        poopSpriteRenderer.enabled = false;
+    
 
-        bombCollider.isTrigger = true;
-        featherCollider.isTrigger = true;
-        swordCollider.isTrigger = true;
-        poopCollider.isTrigger = true;
-    }
+    //public void HidePrefabs()
+    //{
+    //    bombSpriteRenderer.enabled = false; 
+    //    swordSpriteRenderer.enabled = false;
+    //    featherSpriteRenderer.enabled = false;
+    //    poopSpriteRenderer.enabled = false;
 
-    public void ShowPrefabs()
-    {
-        bombSpriteRenderer.enabled = true;
-        swordSpriteRenderer.enabled = true;
-        featherSpriteRenderer.enabled = true;
-        poopSpriteRenderer.enabled = true;
+    //    bombCollider.isTrigger = true;
+    //    featherCollider.isTrigger = true;
+    //    swordCollider.isTrigger = true;
+    //    poopCollider.isTrigger = true;
+    //}
 
-        bombCollider.isTrigger = false;
-        featherCollider.isTrigger = false;
-        swordCollider.isTrigger = false;
-        poopCollider.isTrigger = false;
-    }
+    //public void ShowPrefabs()
+    //{
+    //    bombSpriteRenderer.enabled = true;
+    //    swordSpriteRenderer.enabled = true;
+    //    featherSpriteRenderer.enabled = true;
+    //    poopSpriteRenderer.enabled = true;
+
+    //    bombCollider.isTrigger = false;
+    //    featherCollider.isTrigger = false;
+    //    swordCollider.isTrigger = false;
+    //    poopCollider.isTrigger = false;
+    //}
 
     private void Reset()
     {
         featherCount = 0;
-        Corgi.SetHealth(4); 
+        Corgi.SetHealth(80); 
         Readouts.Reset(featherCount,Corgi.GetHealth());
-        ShowPrefabs();
+        //ShowPrefabs();
         Corgi.Reset();
+        Readouts.HideGameResults();
+        Sounds.Instance.PlayStart();
     }
 
     //// Start is called before the first frame update

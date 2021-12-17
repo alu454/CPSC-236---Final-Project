@@ -11,6 +11,7 @@ public class Corgi : MonoBehaviour
     public Wizzy Wizzy;
 
     public GameObject FloatingScorePrefab;
+    public GameObject YumFloatingScorePrefab;
     public CorgiHealthBar healthBar;
 
     public int maxHealth = 100;
@@ -52,12 +53,12 @@ public class Corgi : MonoBehaviour
 
     public int GetHealth()
     {
-        return Lives;
+        return currentHealth;
     }
 
     public void SetHealth(int health)
     {
-        Lives = health;
+        currentHealth = health;
     }
 
     public void Reset()
@@ -71,6 +72,13 @@ public class Corgi : MonoBehaviour
         Instantiate(FloatingScorePrefab, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
         healthBar.SetHealth(currentHealth);
     }
+
+    //public void TakeHealth(int Health)
+    //{
+    //    currentHealth += Health;
+    //    Instantiate(YumFloatingScorePrefab, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
+    //    healthBar.SetHealth(currentHealth);
+    //}
 
     private void FaceCorrectDirection(float directionX)
     {
@@ -100,7 +108,7 @@ public class Corgi : MonoBehaviour
         if (collision.gameObject.tag == "Feather")
         {
             Destroy(collision.gameObject);
-            StartCoroutine(SpeedUp());
+            //StartCoroutine(SpeedUp());
             Game.Instance.CollectFeather();
         }
         if (collision.gameObject.tag == "Sword")
@@ -114,7 +122,7 @@ public class Corgi : MonoBehaviour
             TakeDamage(10);
             Game.Instance.DamageEffect(collision.gameObject);
             Destroy(collision.gameObject);
-            Game.Instance.HitPoop(Lives);
+            //Game.Instance.HitPoop(Lives);
             StartCoroutine(StartFlashing());
             Game.Instance.CheckGameOverAfterCollision();
         }
@@ -133,12 +141,12 @@ public class Corgi : MonoBehaviour
         //CorgiCollider.isTrigger = false;
     }
 
-    IEnumerator SpeedUp()
-    {
-           GameParameters.CorgiMoveDistance = 0.3f;
-           yield return new WaitForSeconds(10);
-           GameParameters.CorgiMoveDistance = 0.1f;
-    }
+    //IEnumerator SpeedUp()
+    //{
+    //       GameParameters.CorgiMoveDistance = 0.3f;
+    //       yield return new WaitForSeconds(10);
+    //       GameParameters.CorgiMoveDistance = 0.1f;
+    //}
 
     private void SwitchToNormalSprite()
     {

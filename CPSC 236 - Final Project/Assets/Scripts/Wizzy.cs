@@ -30,7 +30,7 @@ public class Wizzy : MonoBehaviour
 
 	public bool CheckIfHealthZero()
     {
-		if (currentHealth <= 0)
+		if (currentHealth == 0)
 			return true;
 		return false;
     }

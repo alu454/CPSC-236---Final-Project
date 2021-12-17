@@ -7,6 +7,8 @@ public class Readouts : MonoBehaviour
 {
     public Text Level;
     public Text FeatherCount;
+    public Text GameResult;
+    
     public GameObject FeatherUIEffect;
     public List<GameObject> HeartList;
     public List<GameObject> FeatherList;
@@ -14,7 +16,7 @@ public class Readouts : MonoBehaviour
     public void Reset(int startingNumFeathers, int startingNumHealth)
     {
         ShowLevel(1);
-        ShowFeatherCount(startingNumFeathers);
+        //ShowFeatherCount(startingNumFeathers);
         DisplayFeatherCount(startingNumFeathers);
         DisplayCorgiHealth(startingNumHealth);
     }
@@ -24,13 +26,6 @@ public class Readouts : MonoBehaviour
         if (level < 0)
             level = 0;
         Level.text = "Level: " + level;
-    }
-
-    public void ShowFeatherCount(int featherCount)
-    {
-        if (featherCount < 0)
-            featherCount = 0;
-        FeatherCount.text = featherCount.ToString();
     }
 
     public void DisplayCorgiHealth(int healthCount)
@@ -63,4 +58,20 @@ public class Readouts : MonoBehaviour
             count = count + 1;
         }
     }
+
+    public void ShowWinResults()
+    {
+        GameResult.text = "WINNER";
+    }
+
+    public void ShowLoseResult()
+    {
+        GameResult.text = "LOSER";
+    }
+
+    public void HideGameResults()
+    {
+        GameResult.text = "";
+    }
+    
 }

@@ -20,6 +20,8 @@ public class Levels : MonoBehaviour
     public void GoToNextLevel()
     {
         currentLevel++;
+        if (IsGameOver())
+            return;
         LoadNextLevel();
     }
 
@@ -30,6 +32,13 @@ public class Levels : MonoBehaviour
 
         levelGameObject = CreateLevel();
         UpdateLevelReadout();
+    }
+
+    public bool IsGameOver()
+    {
+        if (currentLevel == levels.Count)
+            return true;
+        return false;
     }
 
     private void UpdateLevelReadout()
